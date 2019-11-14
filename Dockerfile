@@ -1,13 +1,9 @@
-# base image
-FROM node:13.1.0-alpine
+FROM cypress/included:3.2.0
 
-ENV baseURL=${baseURL}
+COPY /cypress /cypress
+COPY /app/package.json .
+COPY /app/cypress.json .
 
-COPY package*.json ./
-RUN npm install
+EXPOSE 3000
 
-EXPOSE 9090
-
-# start app
-CMD ["npm", "start"]
-
+CMD ["cypress", "run"]
